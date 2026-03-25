@@ -1,0 +1,18 @@
+/*第一遍写的
+#include <stdio.h>
+void moveZeroes(int* nums, int numsSize) {
+    int nums[] = {0，1，0，3，12};
+    int length = sizeof(nums)/ sizeof(nums[0]);
+    
+    //定义快慢指针，此时都指向数组第一个位置
+    int *fast = nums;
+    int *slow = nums;
+
+    //从头开始遍历
+    for (fast < length; fast++){
+        //fast遇到非0的元素，则给慢指针位置来赋该值
+        if(nums[fast] ！= 0){
+            nums[slow] = nums[fast];
+            slow++;
+        }
+  */
