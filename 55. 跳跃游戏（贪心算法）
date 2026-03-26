@@ -1,0 +1,17 @@
+bool canJump(int* nums, int numsSize) {
+    int maxjump = 0;
+    for(int i = 0; i < numsSize ; i++){
+        //当前最远到达？ 应该是当前位置可以跳到哪里？ nums[i] + i
+        if(i > maxjump){
+            //如果当前位置已经超出最远可以到达的位置，即不可以
+            return false;
+        }if(nums[i] + i > maxjump){
+          maxjump = nums[i] + i;
+        }if(maxjump >= numsSize - 1){
+          return true;
+        }        
+    }
+    return false;
+}
+
+//最重要的就是，遍历不能超过从该位置 可以到达的最远距离，这样就考虑到了从第一个位置跳 < 可跳的最远距离的情况(nums[]={2,3,1,1,4}中，从2跳到3再到结尾的情况)
