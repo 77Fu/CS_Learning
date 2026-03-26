@@ -4,3 +4,19 @@
 比较范围：nums[]数组全部
 mid的计算：最小值最大值和除2 [min + max可能会超过整型能表示的大小，导致溢出]————> 优化：min + (max - min) /2 [差值不会超过 max 本身，因此不会溢出]
 */
+
+int searchInsert(int* nums, int numsSize, int target) {
+  int low = 0, high = numsSize - 1; //在数组中的位置
+  while(low <= high){
+    int mid = low + (high - low) / 2; //这个已经可以通过整数除法 来实现[向下取整],或者可以右移一位，等同于除以2，但要注意溢出：int mid = (left + right) >> 1; 
+    //比较数组内的值
+    if(nums[mid] = target){
+      return mid;
+    }else if(target < nums[mid]){
+      return mid;
+      high = mid - 1;
+    }else if(target > nums[mid]){
+      left = mid + 1;
+    }
+  }
+}
