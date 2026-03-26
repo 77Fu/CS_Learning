@@ -1,0 +1,26 @@
+//动态规划：记住公式
+/*
+1.定义dp[i]含义：有几种方法可以到达第i层台阶
+2.状态转移方程: dp[i] = dp[i-1] + dp[i-2];
+3.确定遍历顺序（从前还是从后）:从前往后遍历
+4.初值：dp[0]=0; dp[1]=1; dp[2]=1;
+5.检查
+*/
+//1.怎么转换成代码的？ 2.状态转移方程怎么找
+int climbStairs(int n) {
+    //int i = n;
+    //dp[i] = dp[i-1] + dp[i-2];
+    if (n <= 1) return 1; // 0阶或1阶只有1种方法
+    
+    int prev2 = 1; // dp[i-2]，初始为dp[0]
+    int prev1 = 1; // dp[i-1]，初始为dp[1]
+    int current;
+    
+    for (int i = 2; i <= n; i++) {
+        current = prev1 + prev2; // dp[i] = dp[i-1] + dp[i-2]
+        prev2 = prev1;           // 更新dp[i-2]为下一次的dp[i-1]
+        prev1 = current;         // 更新dp[i-1]为当前的dp[i]
+    }
+    return current;
+
+}
