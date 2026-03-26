@@ -1,0 +1,56 @@
+//重要的是判断和计算方法！！！
+//字符 - 'a' 的结果就是该字母在字母表中的顺序编号（从 0 开始）
+/*统计每个字母出现的次数:
+'a' - 'a' = 0
+'c' - 'a' = 2
+*/
+
+int* findAnagrams(char* s, char* p, int* returnSize) {
+    //双指针，中间固定长度一起运动，如果符合则返回起始索引
+    
+    int cnt_p[26] = {0};
+    int p_len = 0;
+
+    //判断异位词：统计每种数字出现的次数，对比两个字符串
+    while (p[p_len] != '\0') {
+        cnt_p[p[p_len] - 'a']++;
+        p_len++;
+    }
+    // 计算 s 的长度（手动）
+    int s_len = 0;
+    while (s[s_len] != '\0') {
+        s_len++;
+    }
+    // 分配结果数组（最多 s_len 个起始下标）
+    int* ans = (int*)malloc(s_len * sizeof(int));
+    *returnSize = 0;
+    // 滑动窗口
+    int cnt_s[26] = {0};      // 当前窗口中字母频次
+    for (int right = 0; right < s_len; right++) {
+        // 右端点字母进入窗口
+        cnt_s[s[right] - 'a']++;
+
+        int left = right - p_len + 1;
+        // 窗口长度不足 p_len 时，继续扩大
+        if (left < 0) {
+            continue;
+        }
+
+        // 手动比较两个频次数组是否相等
+        int is_equal = 1;      // 假设相等
+        for (int i = 0; i < 26; i++) {
+            if (cnt_s[i] != cnt_p[i]) {
+                is_equal = 0;
+                break;
+            }
+        }
+        if (is_equal) {
+            ans[(*returnSize)++] = left;   // 记录起始下标
+        }
+
+        // 左端点字母离开窗口
+        cnt_s[s[left] - 'a']--;
+    }
+    return ans;
+}
+
